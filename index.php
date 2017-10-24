@@ -34,7 +34,7 @@ foreach ($events as $event) {
 
 if ($event instanceof \LINE\LINEBot\Event\JoinEvent) {
     
-$message = "\n"."毎週日曜日の20時に講師、アシスタント業務について連絡します";
+$message = "連絡用LineBotです";
   $bot->replyMessage($event->getReplyToken(),
     (new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder())
       ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message))
@@ -67,11 +67,9 @@ $message = "\n"."毎週日曜日の20時に講師、アシスタント業務に�
   #$message2 = "今は".$time."今日の天気は雨です。傘を持っていきましょう！";
 
   
- $message = $weekday."曜日の"."講師、アシスタント業務お疲れ様でした。\n"."アシスタント業務担当の方は以下のシートにFacebook宣伝用の写真及びコメントを\n"."\n".
- "講師の方は授業の振り返りを以下のFacebookグループにシェアお願いします。\n".
- "また出勤届けの方も記入よろしくお願いします。";
- $message2 ="アシスタント業務→"."";
- $message3 = "講師の方→"."";
+ $message = $weekday."曜日の"."記入よろしくお願いします。";
+ $message2 ="業務→"."https://docs.google";
+ $message3 = "方→"."https://www.facebook.com";
 
   $bot->replymessage($event->getReplyToken(),
     (new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder())

@@ -1,5 +1,5 @@
 <?php
-echo "helloww";
+
  
 date_default_timezone_set('Asia/Tokyo');
 $week = [
@@ -18,6 +18,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
 
+
+
 $signature = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 try {
   $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
@@ -34,7 +36,7 @@ foreach ($events as $event) {
 
 if ($event instanceof \LINE\LINEBot\Event\JoinEvent) {
     
-
+$message = "連絡用LineBotです";
   $bot->replyMessage($event->getReplyToken(),
     (new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder())
       ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message))
@@ -61,18 +63,36 @@ if ($event instanceof \LINE\LINEBot\Event\JoinEvent) {
 
 
 
-  #$bot->replyText($event->getReplyToken(), $event->getText());
+  $mes=($event->getText());
+  
  #$profile = $bot->getProfile($event->getUserId())->getJSONDecodedBody();
   #$message = $profile["displayName"] . "さん、おはようございます！今日も頑張りましょう！";
   #$message2 = "今は".$time."今日の天気は雨です。傘を持っていきましょう！";
 
-  
+if ($mes=="シフト情報"){
+  $message4 ="シフト→"."https://docs.google.com/";
+$bot->replymessage($event->getReplyToken(),
+    (new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder())
+      ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message4))
+);
+
+
+
+}
+
+
+
+  if ($mes=="業務終了"){
+ $message = $weekday."曜日の"."業務お疲れ様でした。";
+ $message2 ="業務→"."https://docs.google.com/";
+ $message3 = "〜の方→"."https://www.facebook.com/";
+
   $bot->replymessage($event->getReplyToken(),
     (new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder())
       ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message))
       ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message2))
        ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($message3))
   );
-
+}
 }
  ?>
